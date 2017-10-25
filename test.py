@@ -19,6 +19,10 @@ url = "adult.data"
 names = ['age', 'workclass', 'fnlwgt' , 'education', 'education-num', 'marital-status','occupation','relatioship','race','sex','capital-gain','capital-loss','hours-per-week', 'native-country','class']
 dataset = pandas.read_csv(url, names=names)
 
+
+dataset.isnull().sum()
+
+
 # head
 print(dataset.head(20))
 
@@ -27,5 +31,16 @@ print(dataset.describe())
 
 # class distribution
 print(dataset.groupby('class').size())
+
+gnb = GaussianNB()
+arr = dataset.values
+X = arr[:,0:13]
+Y = arr[:,14]
+
+gnb.fit(X,Y)
+
+predict = gnb.predict(['25', 'Private', '226802', '11th', '7', 'Never-married', 'Machine-op-inspct', 'Own-child', 'Black', 'Male', '0', '0', '40', 'United-States'])
+
+print predict
 
 
